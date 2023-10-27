@@ -36,16 +36,32 @@ const Footer = () => {
           <div className="right">©️ COLLINS ABUANEKWU</div>
 
           <div className="socials">
-            <a href="http://" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://github.com/collins-cl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaGithub className="icon" fill="rgb(94, 218, 255)" />
             </a>
-            <a href="http://" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://x.com/meet_cole_"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaX className="icon" fill="rgb(94, 218, 255)" />
             </a>
-            <a href="http://" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://linkedln.com/collins-abuanekwu"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaLinkedinIn className="icon" fill="rgb(94, 218, 255)" />
             </a>
-            <a href="http://" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://instagram.com/meet_cole_"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaInstagram className="icon" fill="rgb(94, 218, 255)" />
             </a>
           </div>

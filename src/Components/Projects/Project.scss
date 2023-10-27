@@ -102,6 +102,12 @@
       font-size: 13px;
       cursor: pointer;
       border: 1px solid rgb(94, 218, 255);
+      transition: border .3s;
+
+      &:hover {
+        border: 1px solid white;
+        transition: border .3s;
+      }
     }
   }
 }
@@ -137,6 +143,34 @@
         width: 70%;
         margin-top: 3em;
         font-size: 13px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .projects {
+    margin-top: 7em;
+    .wrapper {
+      max-width: 90%;
+      margin: auto;
+
+      .head {
+        font-size: 1.5em;
+      }
+
+      .project {
+        margin-top: 3em;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2em;
+
+        .box {
+          width: 45%;
+          height: 310px;
+          padding: 2em;
+        }
       }
     }
   }

@@ -78,6 +78,9 @@
         .desc {
           width: 90%;
         }
+        .brief-info {
+          gap: 1.5em;
+        }
       }
 
       .bottom {
@@ -102,6 +105,36 @@
             }
           }
         }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .footer {
+    margin: 4em 0 1em 0;
+    .wrapper {
+      max-width: 95%;
+      margin: auto;
+      .top {
+        padding: 2em;
+        .head {
+          font-size: 3em;
+        }
+
+        .desc {
+          width: 90%;
+          margin-top: 1em;
+        }
+
+        .brief-info {
+          margin-top: 2em;
+          gap: 1.5em;
+        }
+      }
+
+      hr {
+        margin-top: 2em;
       }
     }
   }

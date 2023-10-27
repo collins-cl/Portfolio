@@ -17,8 +17,7 @@ const Hero = () => {
 
           <div className="flex-box" >
             <div>
-              Highly skilled at progressive enhancement, design systems & UI
-              Engineering.
+              Highly skilled at web design n development, writing smart contracts and web3 pwa.
             </div>
 
             <div>

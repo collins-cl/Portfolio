@@ -21,7 +21,7 @@ const Projects = () => {
                   <BsFolder className="icons" />
 
                   <a
-                    href={`http://${item.Git}`}
+                    href={`${item.Git}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -38,7 +38,7 @@ const Projects = () => {
 
                   <p className="view">
                     <a
-                      href={`http://${item.link}`}
+                      href={`${item.link}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -50,9 +50,14 @@ const Projects = () => {
             ))}
         </div>
 
-        <div className="show-more" onClick={()=>setItemsToShow(itemstoshow + 3)}>
+        {itemstoshow === 7 ? null : (
+          <div
+            className="show-more"
+            onClick={() => setItemsToShow(itemstoshow + 3)}
+          >
             <p>Show More</p>
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

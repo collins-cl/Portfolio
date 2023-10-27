@@ -1,4 +1,15 @@
 #main {
-  padding-bottom: 10em;
+  padding-bottom: 7em;
+}
 
+@media screen and (max-width: 768px) {
+  #main {
+    padding-bottom: 3em;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px){
+  #main {
+    padding-bottom: 2em;
+  }
 }

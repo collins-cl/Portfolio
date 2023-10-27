@@ -35,7 +35,7 @@ export const Langs = [
   {
     id: 6,
     image: Flutter,
-    Type: "Flutter",
+    Type: "Solidity",
   },
   {
     id: 7,
@@ -45,7 +45,7 @@ export const Langs = [
   {
     id: 8,
     image: Express,
-    Type: "Express",
+    Type: "ExpressJs",
   },
 ];
 

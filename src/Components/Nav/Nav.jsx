@@ -11,7 +11,11 @@ const Nav = () => {
         </p>
 
         <div className="aside">
-          <a href="/">
+          <a
+            href="https://codm.com/cdn/invite/cleanrabbit"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <div className="codm-logo">
               <img src={Logo} alt="" />
             </div>
