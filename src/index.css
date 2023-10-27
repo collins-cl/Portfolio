@@ -20,7 +20,7 @@ p,
 a,
 h1,
 h2 {
-  background: linear-gradient(90deg, #d0ffff, #fdffc3, #ccfff3);
+  background: linear-gradient(90deg, #d0ffff, #fcfed7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

@@ -1,8 +1,5 @@
 import React from "react";
 import "../Technologies/Technologies.scss";
-import One from "../../assets/01.png";
-import Two from "../../assets/02.png";
-import Three from "../../assets/03.png";
 import { Langs } from "../LanguagesDummy";
 
 const Technologies = () => {
@@ -10,7 +7,7 @@ const Technologies = () => {
   return (
     <div className="technologies" data-scroll-section>
       <div className="wrapper">
-        <p className="head">What I Work With ^__^</p>
+        <p className="head">What I Work With.</p>
 
         <p className="desc">
           Over the years, I've built products for companies and individuals
@@ -20,31 +17,29 @@ const Technologies = () => {
         </p>
 
         <div className="speciality">
-          <p className="title">What i build 👷‍♂️:</p>
+          <p className="title">What i build.</p>
 
           <div className="content">
-            <div className="box">
-              <img src={One} alt="" />
+            <div className="container">
+              <div className="box">
+                <span>Fe.</span>
+                <p>Frontend Applications</p>
+              </div>
+              <div className="box">
+                <span>Fs.</span>
+                <p>FullStack Applications</p>
+              </div>
+              <div className="box">
+                <span>Web3.</span>
 
-              <p>Frontend Applications</p>
-            </div>
-
-            <div className="box">
-              <img src={Two} alt="" />
-
-              <p>FullStack Applications</p>
-            </div>
-
-            <div className="box">
-              <img src={Three} alt="" />
-
-              <p>Web3 Applications</p>
+                <p>Web3 Applications</p>
+              </div>
             </div>
           </div>
         </div>
 
         <div className="skill">
-          <p className="title">Technologies i work with ⚙️:</p>
+          <p className="title">Technologies i work with.</p>
 
           <div className="list">
             {data.map((data) => (

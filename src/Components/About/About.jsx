@@ -13,7 +13,7 @@ const About = () => {
       </div>
       <div className="wrapper">
         <div className="section-1">
-          <p className="head">iDESIGN</p>
+          <p className="head">iDESIGN.</p>
           <div>
             I enjoy the constant changes in the technologies used in the area
             and love diving into new frameworks and technologies. I challenge
@@ -24,7 +24,7 @@ const About = () => {
         </div>
 
         <div className="section-1">
-          <p className="head">iDEVELOP</p>
+          <p className="head">iDEVELOP.</p>
           <div>
             I offer a wide range of quality and unmatched services and ideas
             that when tested proves to acknowledgable and useful in various
