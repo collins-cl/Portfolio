@@ -1,0 +1,56 @@
+.nav {
+  .wrapper {
+    padding: 3em 0;
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .logo {
+      a {
+        font-size: 1.3em;
+        font-weight: 500;
+      }
+    }
+
+    .aside {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+
+      .codm-logo {
+        img {
+          width: 20px;
+        }
+      }
+
+      .username {
+        font-size: 0.9em;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .nav {
+    .wrapper {
+      padding: 2em 0;
+      max-width: 90%;
+      margin: auto;
+
+      .aside {
+        .codm-logo {
+          img {
+            width: 18px;
+          }
+        }
+
+        .username {
+          font-size: 0.8em;
+        }
+      }
+    }
+  }
+}
