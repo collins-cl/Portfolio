@@ -5,6 +5,7 @@ import LocomotiveScroll from "locomotive-scroll";
 import "locomotive-scroll/src/locomotive-scroll.scss";
 import Hero from "./Components/Hero/Hero";
 import About from "./Components/About/About";
+import Technologies from "./Components/Technologies/Technologies";
 
 function App() {
   //for smooth scrolling transition
@@ -13,6 +14,7 @@ function App() {
     const scroll = new LocomotiveScroll({
       el: scrollEL,
       smooth: true,
+      smartphone: true,
       multiplier: 1,
     });
   }, []);
@@ -22,7 +24,7 @@ function App() {
       <Nav />
       <Hero />
       <About />
-      
+      <Technologies />
     </div>
   );
 }

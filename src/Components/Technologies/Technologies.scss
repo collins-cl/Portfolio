@@ -1,0 +1,186 @@
+.technologies {
+  margin-top: 7em;
+
+  .wrapper {
+    max-width: 1100px;
+    margin: auto;
+
+    .head {
+      font-size: 1.8em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .desc {
+      max-width: 80%;
+      margin-top: 2em;
+      font-size: 15px;
+    }
+
+    .speciality {
+      margin-top: 4em;
+
+      .title {
+        font-size: 1.8em;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      .content {
+        max-width: 70%;
+        margin: auto;
+        margin-top: 3em;
+        display: flex;
+        justify-content: space-between;
+
+        .box {
+          width: 200px;
+          height: 200px;
+          padding: 2em 1em;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+          border: 1px solid rgb(65, 65, 65);
+
+          img {
+            width: 80px;
+          }
+
+          p {
+            font-size: 1.3em;
+            font-weight: 500;
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    .skill {
+      margin-top: 5em;
+
+      .title {
+        font-size: 1.8em;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      .list {
+        max-width: 70%;
+        margin: auto;
+        margin-top: 3em;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1em;
+
+        .box {
+          width: 150px;
+          height: 150px;
+          padding: 1em;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+          border: 1px solid rgb(65, 65, 65);
+
+          img {
+            width: 60px;
+          }
+
+          p {
+            font-size: 1.3em;
+            font-weight: 500;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .technologies {
+    margin-top: 4em;
+
+    .wrapper {
+      max-width: 90%;
+      margin: auto;
+
+      .head {
+        font-size: 1.5em;
+      }
+
+      .desc {
+        max-width: 100%;
+        margin-top: 2em;
+      }
+
+      .speciality {
+        margin-top: 3em;
+
+        .title {
+          font-size: 1.5em;
+        }
+
+        .content {
+          max-width: 100%;
+          margin: auto;
+          margin-top: 2em;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 10px;
+
+          .box {
+            width: 150px;
+            height: 200px;
+            padding: 2em 1em;
+            display: flex;
+
+            img {
+              width: 80px;
+            }
+
+            p {
+              font-size: 1.2em;
+            }
+          }
+        }
+      }
+
+      .skill {
+        margin-top: 4em;
+
+        .title {
+          font-size: 1.5em;
+        }
+
+        .list {
+          max-width: 100%;
+          margin: auto;
+          margin-top: 2em;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 10px;
+
+          .box {
+            width: 150px;
+            height: 200px;
+            padding: 2em 1em;
+            display: flex;
+
+            img {
+              width: 70px;
+            }
+
+            p {
+              font-size: 1.2em;
+            }
+          }
+        }
+      }
+    }
+  }
+}
