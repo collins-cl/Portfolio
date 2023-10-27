@@ -1,8 +1,18 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Poppins";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../src/Font/Poppins/Poppins-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Poppins-B";
+  src: url("../src/Font/Poppins/Poppins-Bold.ttf");
 }
 
 * {
@@ -19,7 +29,8 @@ body {
 p,
 a,
 h1,
-h2 {
+h2,
+span {
   background: linear-gradient(90deg, #d0ffff, #fcfed7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

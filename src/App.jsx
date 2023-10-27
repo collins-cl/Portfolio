@@ -7,6 +7,7 @@ import Hero from "./Components/Hero/Hero";
 import About from "./Components/About/About";
 import Technologies from "./Components/Technologies/Technologies";
 import Projects from "./Components/Projects/Projects";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   //for smooth scrolling transition
@@ -27,6 +28,7 @@ function App() {
       <About />
       <Technologies />
       <Projects />
+      <Footer />
     </div>
   );
 }

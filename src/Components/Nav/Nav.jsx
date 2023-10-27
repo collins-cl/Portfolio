@@ -7,7 +7,7 @@ const Nav = () => {
     <div className="nav" data-scroll-section>
       <div className="wrapper">
         <p className="logo">
-          <a href="/">CoLedev.</a>
+          <a href="/">Coledev.</a>
         </p>
 
         <div className="aside">
