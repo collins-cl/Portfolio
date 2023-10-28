@@ -12,7 +12,7 @@ const Nav = () => {
 
         <div className="aside">
           <a
-            href="https://codm.com/cdn/invite/cleanrabbit"
+            href="https://callofduty.com/cdn/invite/west/system_en_uS.html"
             target="_blank"
             rel="noopener noreferrer"
           >
