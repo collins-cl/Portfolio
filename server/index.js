@@ -1,6 +1,6 @@
-import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import express from "express";
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -14,19 +14,18 @@ const PORT = process.env.PORT || 8888;
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI;
-const FRONTEND_URL =
-  process.env.FRONTEND_URL || "http://localhost:5173";
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 
 if (!CLIENT_ID || !CLIENT_SECRET || !REDIRECT_URI) {
-  throw new Error("Missing Spotify environment variables in .env");
+    throw new Error("Missing Spotify environment variables in .env");
 }
 
 app.disable("x-powered-by");
 
 app.use(
-  cors({
-    origin: FRONTEND_URL,
-  })
+    cors({
+        origin: FRONTEND_URL,
+    }),
 );
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -38,215 +37,248 @@ let cachedAccessToken = null;
 let accessTokenExpiresAt = 0;
 
 async function readTokens() {
-  try {
-    return JSON.parse(await fs.readFile(TOKEN_FILE, "utf8"));
-  } catch (error) {
-    if (error.code === "ENOENT") return {};
-    throw error;
-  }
+    // Production: use Render's environment variable.
+    if (process.env.SPOTIFY_REFRESH_TOKEN) {
+        return {
+            refresh_token: process.env.SPOTIFY_REFRESH_TOKEN,
+        };
+    }
+
+    // Development: use the local token file.
+    try {
+        return JSON.parse(await fs.readFile(TOKEN_FILE, "utf8"));
+    } catch (error) {
+        if (error.code === "ENOENT") return {};
+        throw error;
+    }
 }
 
 async function saveTokens(tokens) {
-  await fs.writeFile(TOKEN_FILE, JSON.stringify(tokens, null, 2), {
-    mode: 0o600,
-  });
+    // Never rely on Render's ephemeral filesystem for credentials.
+    if (process.env.NODE_ENV === "production") {
+        console.warn(
+            "A Spotify refresh token was returned. Update SPOTIFY_REFRESH_TOKEN in Render if the token changed.",
+        );
+        return;
+    }
 
-  await fs.chmod(TOKEN_FILE, 0o600);
+    await fs.writeFile(TOKEN_FILE, JSON.stringify(tokens, null, 2), {
+        mode: 0o600,
+    });
+
+    await fs.chmod(TOKEN_FILE, 0o600);
 }
-
 async function requestSpotifyToken(params) {
-  const response = await fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: {
-      Authorization:
-        "Basic " +
-        Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString("base64"),
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams(params),
-  });
+    const response = await fetch("https://accounts.spotify.com/api/token", {
+        method: "POST",
+        headers: {
+            Authorization:
+                "Basic " +
+                Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString("base64"),
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams(params),
+    });
 
-  const data = await response.json();
+    const data = await response.json();
 
-  if (!response.ok) {
-    console.error("Spotify token request failed:", data);
-    throw new Error("Spotify token request failed.");
-  }
+    if (!response.ok) {
+        console.error(
+            "Spotify token request failed with status:",
+            response.status,
+        );
+        throw new Error("Spotify token request failed.");
+    }
 
-  return data;
+    return data;
 }
 
 // Begin Spotify OAuth authorization.
 app.get("/auth/login", (req, res) => {
-  const state = crypto.randomBytes(32).toString("hex");
+    const state = crypto.randomBytes(32).toString("hex");
 
-  for (const [key, createdAt] of pendingStates) {
-    if (Date.now() - createdAt > 10 * 60 * 1000) {
-      pendingStates.delete(key);
+    for (const [key, createdAt] of pendingStates) {
+        if (Date.now() - createdAt > 10 * 60 * 1000) {
+            pendingStates.delete(key);
+        }
     }
-  }
 
-  pendingStates.set(state, Date.now());
+    pendingStates.set(state, Date.now());
 
-  const authorizationUrl = new URL(
-    "https://accounts.spotify.com/authorize"
-  );
+    const authorizationUrl = new URL("https://accounts.spotify.com/authorize");
 
-  authorizationUrl.search = new URLSearchParams({
-    client_id: CLIENT_ID,
-    response_type: "code",
-    redirect_uri: REDIRECT_URI,
-    scope: "user-read-currently-playing",
-    state,
-  }).toString();
+    authorizationUrl.search = new URLSearchParams({
+        client_id: CLIENT_ID,
+        response_type: "code",
+        redirect_uri: REDIRECT_URI,
+        scope: "user-read-currently-playing",
+        state,
+    }).toString();
 
-  res.redirect(authorizationUrl.toString());
+    res.redirect(authorizationUrl.toString());
 });
 
 // Handle Spotify's OAuth callback.
 app.get("/auth/callback", async (req, res) => {
-  const { code, state, error } = req.query;
+    const { code, state, error } = req.query;
 
-  if (error) {
-    return res.status(400).send("Spotify authorization was denied.");
-  }
+    if (error) {
+        return res.status(400).send("Spotify authorization was denied.");
+    }
 
-  const createdAt = pendingStates.get(state);
+    const createdAt = pendingStates.get(state);
 
-  if (
-    typeof state !== "string" ||
-    !createdAt ||
-    Date.now() - createdAt > 10 * 60 * 1000
-  ) {
-    return res.status(400).send("Invalid or expired OAuth state.");
-  }
+    if (
+        typeof state !== "string" ||
+        !createdAt ||
+        Date.now() - createdAt > 10 * 60 * 1000
+    ) {
+        return res.status(400).send("Invalid or expired OAuth state.");
+    }
 
-  pendingStates.delete(state);
+    pendingStates.delete(state);
 
-  if (typeof code !== "string") {
-    return res.status(400).send("Missing authorization code.");
-  }
+    if (typeof code !== "string") {
+        return res.status(400).send("Missing authorization code.");
+    }
 
-  try {
-    const tokens = await requestSpotifyToken({
-      grant_type: "authorization_code",
-      code,
-      redirect_uri: REDIRECT_URI,
-    });
+    try {
+        const tokens = await requestSpotifyToken({
+            grant_type: "authorization_code",
+            code,
+            redirect_uri: REDIRECT_URI,
+        });
+        const refreshToken = tokens.refresh_token;
 
-    await saveTokens({
-      refresh_token: tokens.refresh_token,
-    });
+        if (!refreshToken && !process.env.SPOTIFY_REFRESH_TOKEN) {
+            return res
+                .status(500)
+                .send(
+                    "Spotify did not provide a refresh token. Please authorize again.",
+                );
+        }
 
-    cachedAccessToken = tokens.access_token;
-    accessTokenExpiresAt =
-      Date.now() + tokens.expires_in * 1000;
+        if (refreshToken) {
+            await saveTokens({
+                refresh_token: refreshToken,
+            });
+        }
 
-    res.redirect(FRONTEND_URL);
-  } catch (error) {
-    console.error("Spotify callback failed:", error.message);
-    res.status(500).send("Unable to connect Spotify.");
-  }
+        cachedAccessToken = tokens.access_token;
+
+        accessTokenExpiresAt = Date.now() + tokens.expires_in * 1000;
+
+        if (process.env.NODE_ENV === "production" && refreshToken) {
+            console.log(
+                "Spotify connected. Update SPOTIFY_REFRESH_TOKEN in Render if needed.",
+            );
+
+            return res.send(
+                "Spotify authorization succeeded. If this is your first production authorization, copy the refresh token from the secure server-side setup process into Render's SPOTIFY_REFRESH_TOKEN environment variable.",
+            );
+        }
+
+        res.redirect(FRONTEND_URL);
+    } catch (error) {
+        console.error("Spotify callback failed:", error.message);
+        res.status(500).send("Unable to connect Spotify.");
+    }
 });
 
 // Obtain or refresh the access token.
 async function getAccessToken() {
-  if (
-    cachedAccessToken &&
-    Date.now() < accessTokenExpiresAt - 60_000
-  ) {
-    return cachedAccessToken;
-  }
+    if (cachedAccessToken && Date.now() < accessTokenExpiresAt - 60_000) {
+        return cachedAccessToken;
+    }
 
-  const tokens = await readTokens();
+    const tokens = await readTokens();
 
-  if (!tokens.refresh_token) {
-    const error = new Error("Spotify has not been connected.");
-    error.status = 401;
-    throw error;
-  }
+    if (!tokens.refresh_token) {
+        const error = new Error("Spotify has not been connected.");
+        error.status = 401;
+        throw error;
+    }
 
-  const refreshed = await requestSpotifyToken({
-    grant_type: "refresh_token",
-    refresh_token: tokens.refresh_token,
-  });
-
-  if (refreshed.refresh_token) {
-    await saveTokens({
-      refresh_token: refreshed.refresh_token,
+    const refreshed = await requestSpotifyToken({
+        grant_type: "refresh_token",
+        refresh_token: tokens.refresh_token,
     });
-  }
 
-  cachedAccessToken = refreshed.access_token;
-  accessTokenExpiresAt =
-    Date.now() + refreshed.expires_in * 1000;
+    if (refreshed.refresh_token) {
+        await saveTokens({
+            refresh_token: refreshed.refresh_token,
+        });
+    }
 
-  return cachedAccessToken;
+    cachedAccessToken = refreshed.access_token;
+    accessTokenExpiresAt = Date.now() + refreshed.expires_in * 1000;
+
+    return cachedAccessToken;
 }
 
 // Return the currently playing track.
 app.get("/api/now-playing", async (req, res) => {
-  try {
-    const accessToken = await getAccessToken();
+    try {
+        const accessToken = await getAccessToken();
 
-    const response = await fetch(
-      "https://api.spotify.com/v1/me/player/currently-playing",
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+        const response = await fetch(
+            "https://api.spotify.com/v1/me/player/currently-playing",
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            },
+        );
 
-    res.set("Cache-Control", "no-store");
+        res.set("Cache-Control", "no-store");
 
-    if (response.status === 204) {
-      return res.json({ isPlaying: false });
+        if (response.status === 204) {
+            return res.json({ isPlaying: false });
+        }
+
+        if (response.status === 401) {
+            cachedAccessToken = null;
+            accessTokenExpiresAt = 0;
+
+            return res.status(502).json({
+                error: "Spotify authorization expired. Please retry.",
+            });
+        }
+
+        if (!response.ok) {
+            return res.status(502).json({
+                error: "Spotify could not retrieve playback information.",
+            });
+        }
+
+        const data = await response.json();
+        const item = data.item;
+
+        if (!data.is_playing || !item) {
+            return res.json({ isPlaying: false });
+        }
+
+        res.json({
+            isPlaying: true,
+            title: item.name,
+            artist: item.artists?.map((artist) => artist.name).join(", "),
+            album: item.album?.name,
+            albumArt: item.album?.images?.[0]?.url,
+            spotifyUrl: item.external_urls?.spotify,
+        });
+    } catch (error) {
+        if (error.status === 401) {
+            return res.status(401).json({ error: error.message });
+        }
+
+        console.error("Now-playing error:", error.message);
+
+        res.status(500).json({
+            error: "Unable to retrieve Spotify playback.",
+        });
     }
-
-    if (response.status === 401) {
-      cachedAccessToken = null;
-      accessTokenExpiresAt = 0;
-
-      return res.status(502).json({
-        error: "Spotify authorization expired. Please retry.",
-      });
-    }
-
-    if (!response.ok) {
-      return res.status(502).json({
-        error: "Spotify could not retrieve playback information.",
-      });
-    }
-
-    const data = await response.json();
-    const item = data.item;
-
-    if (!data.is_playing || !item) {
-      return res.json({ isPlaying: false });
-    }
-
-    res.json({
-      isPlaying: true,
-      title: item.name,
-      artist: item.artists?.map((artist) => artist.name).join(", "),
-      album: item.album?.name,
-      albumArt: item.album?.images?.[0]?.url,
-      spotifyUrl: item.external_urls?.spotify,
-    });
-  } catch (error) {
-    if (error.status === 401) {
-      return res.status(401).json({ error: error.message });
-    }
-
-    console.error("Now-playing error:", error.message);
-
-    res.status(500).json({
-      error: "Unable to retrieve Spotify playback.",
-    });
-  }
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Spotify backend running at http://0.0.0.0:${PORT}`);
+    console.log(`Spotify backend running at http://0.0.0.0:${PORT}`);
 });
