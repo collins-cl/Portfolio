@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Screens } from "../../constants/Screens";
 import "./MobileShowcase.scss";
 
@@ -8,12 +8,53 @@ import "./MobileShowcase.scss";
 const MobileShowcase = () => {
     const [activeId, setActiveId] = useState(null);
     const [revealed, setRevealed] = useState(false);
+    const sectionRef = useRef(null);
 
     const active =
         Screens.find((screen) => screen.id === activeId) ?? Screens[0];
 
+    // Warm the browser cache with this section's media just before the
+    // user reaches it, so the reveal feels instant.
+    useEffect(() => {
+        const node = sectionRef.current;
+
+        if (!node || !("IntersectionObserver" in window)) {
+            return undefined;
+        }
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (!entries.some((entry) => entry.isIntersecting)) {
+                    return;
+                }
+
+                Screens.forEach((screen) => {
+                    if (screen.cover) {
+                        const img = new Image();
+                        img.src = screen.cover;
+                    }
+
+                    if (screen.video) {
+                        const link = document.createElement("link");
+                        link.rel = "preload";
+                        link.as = "video";
+                        link.href = screen.video;
+                        document.head.appendChild(link);
+                    }
+                });
+
+                observer.disconnect();
+            },
+            { rootMargin: "800px" },
+        );
+
+        observer.observe(node);
+
+        return () => observer.disconnect();
+    }, []);
+
     return (
-        <div className="mobile-showcase" data-scroll-section>
+        <div className="mobile-showcase" data-scroll-section ref={sectionRef}>
             <div className="wrapper">
                 <p className="head">Mobile apps i've built.</p>
 
