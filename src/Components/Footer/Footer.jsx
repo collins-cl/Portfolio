@@ -25,7 +25,7 @@ const Footer = () => {
                             Email me.{" "}
                             <BsArrowUpRight fill="rgb(94, 218, 255)" />
                         </a>
-                        <a href="/collins_resume.pdf" download>
+                        <a href="/Collins_Abuanekwu_Neat_Resume.pdf" download>
                             Resume. <BsArrowUpRight fill="rgb(94, 218, 255)" />
                         </a>
                     </div>
@@ -48,7 +48,7 @@ const Footer = () => {
                             />
                         </a>
                         <a
-                            href="https://x.com/meet_cole_"
+                            href="https://x.com/iyapicode"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -65,7 +65,7 @@ const Footer = () => {
                             />
                         </a>
                         <a
-                            href="https://instagram.com/meet_cole_"
+                            href="https://instagram.com/waterisoverhyped"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
