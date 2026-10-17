@@ -64,42 +64,51 @@ export const Langs = [
 export const ProjectDummy = [
     {
         id: 1,
-        Name: "GoFood",
+        Name: "Havn",
         Description:
-            "GoFood is the direct clone to the original gofood clone app. This was used to test my indepth knowledge of extensive web development",
-        link: "https://gofoodclone.vercel.app",
-        stack: "ReactJs SCSS CommerceJs ",
-        Git: "https://github.com/collins-cl/gofoodclone",
+            "Where landlords and agents meet tenants & people looking for homes/shelter. Connect with agents and find the right home for you.",
+        link: "https://www/",
+        stack: "NextJs Vercel",
+        Git: "https://github.com/collins-cl/sd-landing-page",
     },
     {
         id: 2,
-        Name: "Anonyms",
+        Name: "SkillDuel",
         Description:
-            "Anonyms aims to share messages and communicate discreetly on the platform ",
-        link: "https://getlinkedhack-two.vercel.app",
-        stack: "ReactJs SCSS Laravel ",
-        Git: "https://github.com/collins-cl/hackathon",
+            "A competitive 1v1 knowledge-duel platform — Duolingo's warmth meets Chess.com's rigor. Pick a topic (or type your own), get matched with an opponent, answer 5 timed questions, earn XP, and climb from Rookie to Master.",
+        link: "https://www.skillduel.app/",
+        stack: "NextJs Websocket Go/MySQL ",
+        Git: "https://github.com/collins-cl/sd-landing-page",
     },
     {
         id: 3,
-        Name: "MacFa Enterprise",
+        Name: "Jagaban Exchange",
         Description:
-            "A Landing page that focuses on the sales n repair of transformer, generators and synchronising panels",
-        link: "https://macfaenterprise.vercel.app",
-        stack: "ReactJs SCSS WhatsApp Api ",
-        Git: "https://github.com/collins-cl/macfaenterprise",
+            "A modern cryprocurrency exchange and digital platform that enables seamless transactions across parties ",
+        link: "https://jagabanexchange.com/",
+        stack: "NextJs SCSS Laravel ",
+        Git: "https://github.com/collins-cl/",
     },
     {
         id: 4,
-        Name: "Webify",
+        Name: "Support Hub",
         Description:
-            "Webify is an NFT Website which supports the minting of NFTs on the blockchain network",
-        link: "https://webify.vercel.app",
-        stack: "ReactJs CSS Web3.js Solidity ",
-        Git: "https://github.com/collins-cl/webify",
+            "A modern and scalable Knowledgebase & Ticket Support Management System designed to streamline customer support with smart self-service articles, role-based ticketing workflows, and real-time team collaboration.",
+        link: "https://supporthub.byteverse.tech/",
+        stack: "ReactJs SCSS WhatsApp Api ",
+        Git: "https://github.com/collins-cl/",
     },
     {
         id: 5,
+        Name: "useWaka",
+        Description:
+            "Waka, an event planning/meet up platform where people meet people, organize events, get tickets & sell tickets",
+        link: "https://waka-landing-page-six.vercel.app/",
+        stack: "ReactNative NextJs Go",
+        Git: "https://github.com/collins-cl/",
+    },
+    {
+        id: 6,
         Name: "Hawksite",
         Description:
             "GoFood is the direct clone to the original gofood clone app. This was used to test my indepth knowledge of extensive web development",
@@ -108,7 +117,7 @@ export const ProjectDummy = [
         Git: "https://github.com/collins-cl/hawksite_copy",
     },
     {
-        id: 6,
+        id: 7,
         Name: "Cole's Estate",
         Description:
             "ColeEstate is an online platform that supports the booking of hotels and estate rooms from us.",
@@ -117,7 +126,7 @@ export const ProjectDummy = [
         Git: "https://github.com/collins-cl/estate-landing-page",
     },
     {
-        id: 7,
+        id: 8,
         Name: "Dashlite",
         Description:
             "Dashlite is a customer relationship marketplace websites.Lots of utilities and functionalities",
