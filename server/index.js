@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 8888;
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI;
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 
 if (!CLIENT_ID || !CLIENT_SECRET || !REDIRECT_URI) {
     throw new Error("Missing Spotify environment variables in .env");
@@ -22,7 +22,10 @@ if (!CLIENT_ID || !CLIENT_SECRET || !REDIRECT_URI) {
 
 app.disable("x-powered-by");
 
-const allowedOrigins = ["https://coledev.vercel.app", "http://localhost:5173"];
+const allowedOrigins = [
+    "https://coledev.vercel.app",
+    "http://localhost:3000",
+];
 
 app.use(
     cors({

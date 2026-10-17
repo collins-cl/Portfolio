@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../Projects/Project.scss";
 import { BsFolder, BsArrowUpRight } from "react-icons/bs";
 import { PiGithubLogoLight } from "react-icons/pi";

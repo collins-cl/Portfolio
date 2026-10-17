@@ -1,6 +1,4 @@
-import ImageGenMov from "../assets/appScreens/chatgptvid.mp4";
-import ImageGenScreen from "../assets/appScreens/imagegenscreengpt.jpg";
-
+// Media lives in /public/media and is referenced by URL.
 export const Screens = [
     {
         id: 1,
@@ -9,7 +7,7 @@ export const Screens = [
         tagline: "Recreated the chatgpt image generation screen/drawer.",
         kind: "Screen",
         video: null,
-        cover: ImageGenScreen,
+        cover: "/media/imagegenscreengpt.jpg",
     },
     {
         id: 2,
@@ -18,7 +16,7 @@ export const Screens = [
         tagline: "Recreated the chatgpt image generation screen",
         stack: "React Native · Expo",
         kind: "video",
-        video: ImageGenMov,
+        video: "/media/chatgptvid.mp4",
         cover: null,
     },
     {

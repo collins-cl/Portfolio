@@ -1,4 +1,3 @@
-import React from "react";
 import "../Footer/Footer.scss";
 import { FaGithub, FaX, FaLinkedinIn, FaInstagram } from "react-icons/fa6";
 import { BsArrowUpRight } from "react-icons/bs";
@@ -24,7 +23,7 @@ const Footer = () => {
             <a href="mailto:collinsolads@gmail.com">
               Email me. <BsArrowUpRight fill="rgb(94, 218, 255)" />
             </a>
-            <a href="../../assets/collins_resume.pdf" download>
+            <a href="/collins_resume.pdf" download>
               Resume. <BsArrowUpRight fill="rgb(94, 218, 255)" />
             </a>
           </div>
