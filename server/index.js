@@ -22,10 +22,7 @@ if (!CLIENT_ID || !CLIENT_SECRET || !REDIRECT_URI) {
 
 app.disable("x-powered-by");
 
-const allowedOrigins = [
-    "https://coledev.vercel.app",
-    "http://localhost:3000",
-];
+const allowedOrigins = ["https://coledev.vercel.app", "http://localhost:3000"];
 
 app.use(
     cors({

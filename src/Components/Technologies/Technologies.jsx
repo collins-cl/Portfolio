@@ -9,7 +9,7 @@ const Technologies = () => {
                 <p className="head">What I Work With.</p>
 
                 <p className="desc">
-                    Over the years, I&apos;ve  built products for companies and
+                    Over the years, I&apos;ve built products for companies and
                     individuals around continents ranging from marketing
                     websites to complex solutions and enterprise apps with focus
                     on fast, elegant and accessible user experiences.

@@ -1,5 +1,5 @@
-import "../index.css";
 import "../App.css";
+import "../index.css";
 
 export const metadata = {
     title: "Cole's PortFolio",
