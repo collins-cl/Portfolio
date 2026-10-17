@@ -11,39 +11,41 @@ const SpotifyNowPlaying = () => {
     useEffect(() => {
         let isMounted = true;
 
-        const fetchTrack = async () => {
+        async function fetchNowPlaying() {
             try {
                 const response = await fetch(API_URL);
 
                 if (!response.ok) {
-                    throw new Error("Failed to fetch Spotify track");
+                    throw new Error(`API returned ${response.status}`);
                 }
 
                 const data = await response.json();
 
                 if (isMounted) {
                     setTrack(data.isPlaying ? data : null);
-                    setConnected(true);
-                }
-            } catch (error) {
-                if (isMounted) {
-                    setConnected(false);
-                }
 
-                console.error("Spotify connection error:", error);
+                    setError(null);
+                }
+            } catch (err) {
+                console.error("Spotify fetch failed:", err);
+
+                if (isMounted) {
+                    setError(err.message);
+                }
             } finally {
                 if (isMounted) {
                     setLoading(false);
                 }
             }
-        };
+        }
 
-        fetchTrack();
+        fetchNowPlaying();
 
-        const interval = setInterval(fetchTrack, 15000);
+        const interval = setInterval(fetchNowPlaying, 30_000);
 
         return () => {
             isMounted = false;
+
             clearInterval(interval);
         };
     }, []);
