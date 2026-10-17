@@ -180,6 +180,10 @@
                     pointer-events: none;
                 }
             }
+
+            .mobile-strip {
+                display: none;
+            }
         }
     }
 }
@@ -217,28 +221,68 @@
                 gap: 5em;
                 margin-top: 3em;
 
+                .tracks,
                 .stage {
-                    margin-top: 3em;
-                    position: static;
-                    top: 0;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 100%;
-                    height: 500px;
-
-                    .phone {
-                        position: relative;
-                        width: 350px;
-                        max-width: 100%;
-                        padding: 10px;
-                    }
+                    display: none;
                 }
 
-                .tracks {
+                .mobile-strip {
+                    display: flex;
+                    gap: 1.2em;
                     width: 100%;
-                    .track {
-                        padding: 1.1em 0.2em;
+                    overflow-x: auto;
+                    scroll-snap-type: x mandatory;
+                    scroll-padding-left: 1.5em;
+                    padding: 0.25em 1.5em 1em;
+                    scrollbar-width: none;
+                    -webkit-overflow-scrolling: touch;
+
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                    &__item {
+                        flex: 0 0 auto;
+                        width: 210px;
+                        margin: 0;
+                        scroll-snap-align: start;
+                    }
+
+                    &__media {
+                        aspect-ratio: 9 / 19;
+                        overflow: hidden;
+                        border-radius: 22px;
+                        border: 1px solid rgb(45, 45, 45);
+                        background: linear-gradient(
+                            160deg,
+                            rgb(28, 28, 28),
+                            rgb(14, 14, 14)
+                        );
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        video,
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            display: block;
+                        }
+                    }
+
+                    &__placeholder {
+                        padding: 1em;
+                        text-align: center;
+                        font-size: 0.8em;
+                        opacity: 0.6;
+                    }
+
+                    &__caption {
+                        margin-top: 0.7em;
+                        font-size: 0.85em;
+                        font-weight: 600;
+                        text-align: center;
                     }
                 }
             }

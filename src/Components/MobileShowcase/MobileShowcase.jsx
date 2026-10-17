@@ -144,6 +144,46 @@ const MobileShowcase = () => {
                             </div>
                         </div>
                     </div>
+
+                    <div
+                        className="mobile-strip"
+                        role="list"
+                        aria-label="App screens"
+                    >
+                        {Screens.map((screen) => (
+                            <figure
+                                className="mobile-strip__item"
+                                role="listitem"
+                                key={screen.id}
+                            >
+                                <div className="mobile-strip__media">
+                                    {screen.video ? (
+                                        <video
+                                            src={screen.video}
+                                            autoPlay
+                                            loop
+                                            muted
+                                            playsInline
+                                        />
+                                    ) : screen.cover ? (
+                                        <img
+                                            src={screen.cover}
+                                            alt={`${screen.app} — ${screen.title}`}
+                                            loading="lazy"
+                                        />
+                                    ) : (
+                                        <div className="mobile-strip__placeholder">
+                                            <span>No preview yet</span>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <figcaption className="mobile-strip__caption">
+                                    {screen.title}
+                                </figcaption>
+                            </figure>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
