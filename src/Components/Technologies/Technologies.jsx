@@ -49,7 +49,7 @@ const Technologies = () => {
                     <div className="list">
                         {data.map((item) => (
                             <div key={item.id} className="box" data-scroll>
-                                <img src={item.image} alt={item.Type} />
+                                <img src={item.image.src} alt={item.Type} />
 
                                 <p>{item.Type}</p>
                             </div>
