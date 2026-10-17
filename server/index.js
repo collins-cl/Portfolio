@@ -22,9 +22,19 @@ if (!CLIENT_ID || !CLIENT_SECRET || !REDIRECT_URI) {
 
 app.disable("x-powered-by");
 
+const allowedOrigins = ["https://coledev.vercel.app", "http://localhost:5173"];
+
 app.use(
     cors({
-        origin: FRONTEND_URL,
+        origin: (origin, callback) => {
+            if (!origin || allowedOrigins.includes(origin)) {
+                return callback(null, true);
+            }
+
+            console.error("CORS blocked origin:", origin);
+
+            return callback(new Error("Not allowed by CORS"));
+        },
     }),
 );
 
