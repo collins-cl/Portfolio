@@ -56,10 +56,10 @@ const MobileShowcase = () => {
     return (
         <div className="mobile-showcase" data-scroll-section ref={sectionRef}>
             <div className="wrapper">
-                <p className="head">Mobile apps i've built.</p>
+                <p className="head">Mobile apps i&apos;ve built.</p>
 
                 <p className="desc">
-                    Real screens and interactions from apps i've shipped —
+                    Real screens and interactions from apps i&apos;ve shipped —
                     polished UI, buttery transitions, and the details that make
                     users stay.
                 </p>
@@ -126,6 +126,7 @@ const MobileShowcase = () => {
                                         loop
                                         muted
                                         playsInline
+                                        preload="auto"
                                     />
                                 ) : revealed && active.cover ? (
                                     <img
