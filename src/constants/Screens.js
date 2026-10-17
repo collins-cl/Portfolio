@@ -1,5 +1,5 @@
+import ImageGenMov from "../assets/appScreens/chatgptvid.mp4";
 import ImageGenScreen from "../assets/appScreens/imagegenscreengpt.PNG";
-import ImageGenMov from "../assets/appScreens/imagegenvid.mp4";
 
 export const Screens = [
     {
