@@ -121,7 +121,7 @@ app.get("/auth/login", (req, res) => {
         client_id: CLIENT_ID,
         response_type: "code",
         redirect_uri: REDIRECT_URI,
-        scope: "user-read-currently-playing",
+        scope: "user-read-currently-playing user-read-recently-played",
         state,
     }).toString();
 
@@ -226,7 +226,48 @@ async function getAccessToken() {
     return cachedAccessToken;
 }
 
-// Return the currently playing track.
+// Return the most recently played track, or null if unavailable.
+// Note: Spotify can lag a few minutes before a track shows up here.
+async function getRecentlyPlayed(accessToken) {
+    const response = await fetch(
+        "https://api.spotify.com/v1/me/player/recently-played?limit=1",
+        {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        },
+    );
+
+    if (response.status === 403) {
+        console.warn(
+            "Recently-played request was denied. Re-authorize Spotify with the user-read-recently-played scope.",
+        );
+
+        return null;
+    }
+
+    if (!response.ok) {
+        return null;
+    }
+
+    const data = await response.json();
+    const item = data.items?.[0];
+
+    if (!item?.track) {
+        return null;
+    }
+
+    return {
+        title: item.track.name,
+        artist: item.track.artists?.map((artist) => artist.name).join(", "),
+        album: item.track.album?.name,
+        albumArt: item.track.album?.images?.[0]?.url,
+        spotifyUrl: item.track.external_urls?.spotify,
+        playedAt: item.played_at,
+    };
+}
+
+// Return the currently playing track, falling back to the last played track.
 app.get("/api/now-playing", async (req, res) => {
     try {
         const accessToken = await getAccessToken();
@@ -242,10 +283,6 @@ app.get("/api/now-playing", async (req, res) => {
 
         res.set("Cache-Control", "no-store");
 
-        if (response.status === 204) {
-            return res.json({ isPlaying: false });
-        }
-
         if (response.status === 401) {
             cachedAccessToken = null;
             accessTokenExpiresAt = 0;
@@ -255,27 +292,42 @@ app.get("/api/now-playing", async (req, res) => {
             });
         }
 
-        if (!response.ok) {
+        if (!response.ok && response.status !== 204) {
             return res.status(502).json({
                 error: "Spotify could not retrieve playback information.",
             });
         }
 
-        const data = await response.json();
-        const item = data.item;
+        if (response.status !== 204) {
+            const data = await response.json();
+            const item = data.item;
 
-        if (!data.is_playing || !item) {
-            return res.json({ isPlaying: false });
+            if (data.is_playing && item) {
+                return res.json({
+                    isPlaying: true,
+                    title: item.name,
+                    artist: item.artists
+                        ?.map((artist) => artist.name)
+                        .join(", "),
+                    album: item.album?.name,
+                    albumArt: item.album?.images?.[0]?.url,
+                    spotifyUrl: item.external_urls?.spotify,
+                });
+            }
         }
 
-        res.json({
-            isPlaying: true,
-            title: item.name,
-            artist: item.artists?.map((artist) => artist.name).join(", "),
-            album: item.album?.name,
-            albumArt: item.album?.images?.[0]?.url,
-            spotifyUrl: item.external_urls?.spotify,
-        });
+        // Nothing is playing right now — fall back to the last played track.
+        const recent = await getRecentlyPlayed(accessToken);
+
+        if (recent) {
+            return res.json({
+                isPlaying: false,
+                isRecent: true,
+                ...recent,
+            });
+        }
+
+        return res.json({ isPlaying: false });
     } catch (error) {
         if (error.status === 401) {
             return res.status(401).json({ error: error.message });

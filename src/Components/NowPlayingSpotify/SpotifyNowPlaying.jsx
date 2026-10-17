@@ -22,15 +22,13 @@ const SpotifyNowPlaying = () => {
                 const data = await response.json();
 
                 if (isMounted) {
-                    setTrack(data.isPlaying ? data : null);
-
-                    setError(null);
+                    setTrack(data.isPlaying || data.isRecent ? data : null);
                 }
             } catch (err) {
                 console.error("Spotify fetch failed:", err);
 
                 if (isMounted) {
-                    setError(err.message);
+                    setConnected(false);
                 }
             } finally {
                 if (isMounted) {
@@ -96,7 +94,7 @@ const SpotifyNowPlaying = () => {
             <div className="spotify-now-playing__info">
                 <span className="spotify-now-playing__label">
                     <span className="spotify-now-playing__dot" />
-                    Listening to Spotify
+                    {track.isPlaying ? "Listening to Spotify" : "Last played"}
                 </span>
 
                 <span className="spotify-now-playing__title">
