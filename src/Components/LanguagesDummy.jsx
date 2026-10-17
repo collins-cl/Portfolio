@@ -67,9 +67,9 @@ export const ProjectDummy = [
         Name: "Havn",
         Description:
             "Where landlords and agents meet tenants & people looking for homes/shelter. Connect with agents and find the right home for you.",
-        link: "https://www/",
-        stack: "NextJs Vercel",
-        Git: "https://github.com/collins-cl/sd-landing-page",
+        link: "https://havn-hvn.vercel.app/",
+        stack: "NextJs Vercel ",
+        Git: "https://github.com/collins-cl/",
     },
     {
         id: 2,
