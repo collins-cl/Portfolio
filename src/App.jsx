@@ -13,27 +13,27 @@ function App() {
     const scrollRef = useRef(null);
 
     //for smooth scrolling transition
-    useEffect(() => {
-        const scrollEl = document.querySelector("#main");
-        const scroll = new LocomotiveScroll({
-            el: scrollEl,
-            smooth: true,
-            smartphone: { smooth: true },
-            multiplier: 1,
-        });
-        scrollRef.current = scroll;
+    // useEffect(() => {
+    //     const scrollEl = document.querySelector("#main");
+    //     const scroll = new LocomotiveScroll({
+    //         el: scrollEl,
+    //         smooth: true,
+    //         smartphone: { smooth: true },
+    //         multiplier: 1,
+    //     });
+    //     scrollRef.current = scroll;
 
-        // Keep the scroll limit in sync when the container changes size
-        // (fonts/images loading, "Show More" expanding the projects list, etc.).
-        const resizeObserver = new ResizeObserver(() => scroll.update());
-        resizeObserver.observe(scrollEl);
+    //     // Keep the scroll limit in sync when the container changes size
+    //     // (fonts/images loading, "Show More" expanding the projects list, etc.).
+    //     const resizeObserver = new ResizeObserver(() => scroll.update());
+    //     resizeObserver.observe(scrollEl);
 
-        return () => {
-            resizeObserver.disconnect();
-            scroll.destroy();
-            scrollRef.current = null;
-        };
-    }, []);
+    //     return () => {
+    //         resizeObserver.disconnect();
+    //         scroll.destroy();
+    //         scrollRef.current = null;
+    //     };
+    // }, []);
 
     return (
         <div data-scroll-container id="main">

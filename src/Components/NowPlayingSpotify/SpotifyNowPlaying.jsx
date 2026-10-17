@@ -93,7 +93,6 @@ const SpotifyNowPlaying = () => {
 
             <div className="spotify-now-playing__info">
                 <span className="spotify-now-playing__label">
-                    <span className="spotify-now-playing__dot" />
                     {track.isPlaying ? "Listening to Spotify" : "Last played"}
                 </span>
 
