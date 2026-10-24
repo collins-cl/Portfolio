@@ -5,6 +5,7 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import guestbookRouter from "./guestbook.js";
 
 dotenv.config();
 
@@ -21,6 +22,8 @@ if (!CLIENT_ID || !CLIENT_SECRET || !REDIRECT_URI) {
 }
 
 app.disable("x-powered-by");
+// Render sits behind a proxy; needed for per-IP rate limits.
+app.set("trust proxy", 1);
 
 const allowedOrigins = ["https://coledev.vercel.app", "http://localhost:3000"];
 
@@ -340,6 +343,8 @@ app.get("/api/now-playing", async (req, res) => {
         });
     }
 });
+
+app.use("/api/guestbook", guestbookRouter);
 
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`Spotify backend running at http://0.0.0.0:${PORT}`);

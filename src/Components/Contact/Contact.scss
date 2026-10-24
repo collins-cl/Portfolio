@@ -1,0 +1,87 @@
+.contact {
+    display: flex;
+    justify-content: center;
+    padding: 110px var(--edge) 120px;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 40px;
+
+    &__column {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        width: 760px;
+        max-width: 100%;
+    }
+
+    &__pitch {
+        font-size: 32px;
+        line-height: 1.45;
+        letter-spacing: -0.7px;
+        color: var(--ink);
+    }
+
+    &__actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+    }
+
+    &__btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 18px;
+        background: var(--chip);
+        border: 1px solid var(--chip-line);
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 18px;
+        color: var(--ink);
+        transition: border-color 160ms ease;
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        &:hover {
+            border-color: var(--ink-3);
+        }
+
+        &--primary {
+            background: var(--ink);
+            border-color: var(--ink);
+            color: var(--bg);
+
+            &:hover {
+                border-color: var(--ink);
+            }
+        }
+    }
+
+    &__address {
+        padding-left: 4px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--ink-3);
+    }
+
+    @media (max-width: 900px) {
+        padding: 88px var(--edge) 96px;
+
+        &__pitch {
+            font-size: 28px;
+        }
+    }
+
+    @media (max-width: 640px) {
+        padding: 64px var(--edge) 72px;
+
+        &__pitch {
+            font-size: 22px;
+            letter-spacing: -0.4px;
+        }
+    }
+}

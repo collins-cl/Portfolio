@@ -1,0 +1,328 @@
+.collage {
+    position: relative;
+    overflow: hidden;
+    // 48px drafting grid, first horizontal line 4px down (as in the pen).
+    background-image:
+        linear-gradient(to right, var(--grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position-y: 4px;
+    touch-action: pan-y;
+
+    &__stage {
+        position: absolute;
+        top: 0;
+        transform-origin: 0 0;
+    }
+
+    &__item {
+        position: absolute;
+        transform: rotate(var(--rot));
+        cursor: grab;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: none;
+        will-change: transform;
+
+        &.is-held {
+            cursor: grabbing;
+
+            .collage__body {
+                box-shadow: 0 22px 44px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        img {
+            pointer-events: none;
+        }
+    }
+
+    &__body {
+        box-shadow: var(--shadow-object);
+        transition: box-shadow 200ms ease;
+    }
+
+    &__hint {
+        position: absolute;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        line-height: 16px;
+        color: var(--ink-3);
+        white-space: nowrap;
+    }
+
+    &__tip {
+        position: absolute;
+        z-index: 40;
+        padding: 7px 12px;
+        border-radius: 999px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        line-height: 16px;
+        color: #13201f;
+        white-space: nowrap;
+        box-shadow: var(--shadow-object);
+        pointer-events: none;
+        animation: tip-in 160ms var(--ease-out);
+    }
+
+    // ----- Objects -----
+
+    &__item--polaroid .collage__body {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 268px;
+        padding: 14px 14px 16px;
+        background: #fff;
+
+        img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        span {
+            font-family: var(--font-hand);
+            font-size: 24px;
+            line-height: 30px;
+            color: #2b2a27;
+        }
+    }
+
+    &__item--vinyl .collage__body {
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+    }
+
+    &__item--sleeve .collage__body {
+        width: 240px;
+        height: 240px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__item--phone .collage__body {
+        width: 186px;
+        height: 380px;
+        padding: 7px;
+        background: #111;
+        border-radius: 32px;
+    }
+
+    &__item--sticky .collage__body {
+        width: 196px;
+        height: 196px;
+        padding: 20px;
+        background: var(--yellow);
+
+        p {
+            font-family: var(--font-hand);
+            font-size: 30px;
+            line-height: 1.1;
+            color: var(--note-ink);
+        }
+    }
+
+    &__item--terminal .collage__body {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        width: 300px;
+        padding: 14px;
+        background: #161616;
+        border-radius: 10px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        line-height: 17px;
+        color: #e5e5e5;
+        white-space: nowrap;
+    }
+
+    &__item--stamp .collage__body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        width: 116px;
+        height: 116px;
+        background: var(--stamp);
+        border-radius: 50%;
+
+        strong {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.4px;
+            line-height: 24px;
+            color: #fff;
+        }
+
+        span {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 1.2px;
+            line-height: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+    }
+}
+
+.terminal__dots {
+    display: flex;
+    gap: 5px;
+    padding-bottom: 4px;
+
+    i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ff5f57;
+
+        &:nth-child(2) {
+            background: #febc2e;
+        }
+
+        &:nth-child(3) {
+            background: #28c840;
+        }
+    }
+}
+
+.terminal__dim {
+    color: #9ca3af;
+}
+
+.terminal__ok {
+    color: #4ade80;
+}
+
+.vinyl {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    // Disc with four grooves (13px apart) like the pen.
+    background:
+        radial-gradient(circle, transparent 67px, #2a2a2a 67px 68px, transparent 68px),
+        radial-gradient(circle, transparent 80px, #2a2a2a 80px 81px, transparent 81px),
+        radial-gradient(circle, transparent 93px, #2a2a2a 93px 94px, transparent 94px),
+        radial-gradient(circle, transparent 106px, #2a2a2a 106px 107px, transparent 107px),
+        #121212;
+    animation: spin-slow 14s linear infinite;
+
+    &.is-playing {
+        animation-duration: 6s;
+    }
+
+    img {
+        position: absolute;
+        inset: 76px;
+        width: 88px;
+        height: 88px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        left: 116px;
+        top: 116px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--bg);
+    }
+}
+
+.duel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 100%;
+    padding: 30px 14px 14px;
+    background: #0e1424;
+    border-radius: 26px;
+    overflow: hidden;
+
+    &__top {
+        display: flex;
+        justify-content: space-between;
+        font-family: var(--font-mono);
+        font-size: 9px;
+        letter-spacing: 0.6px;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    &__timer {
+        color: #4ade80;
+    }
+
+    &__bar {
+        height: 4px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.1);
+
+        span {
+            display: block;
+            width: 96px;
+            height: 4px;
+            border-radius: 2px;
+            background: #4ade80;
+        }
+    }
+
+    &__q {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.3;
+        color: #fff;
+    }
+
+    &__a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 9px 10px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: #fff;
+
+        &.is-right {
+            background: rgba(34, 197, 94, 0.18);
+            border-color: #22c55e;
+        }
+
+        svg {
+            width: 13px;
+            height: 13px;
+            color: #4ade80;
+        }
+    }
+
+    &__xp {
+        align-self: flex-start;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: rgba(250, 204, 21, 0.15);
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: #facc15;
+    }
+}
+
+@keyframes tip-in {
+    from {
+        opacity: 0;
+        transform: translateY(4px) scale(0.96);
+    }
+}

@@ -1,0 +1,29 @@
+.giant-email {
+    padding: 18px var(--gutter) 10px;
+    overflow: hidden;
+
+    // 118px at a 1200px content width, scaling with the content box.
+    &__text {
+        display: block;
+        font-size: min(118px, calc((100vw - 2 * var(--edge)) * 0.0983));
+        font-weight: 500;
+        letter-spacing: -0.056em;
+        line-height: 1.2;
+        white-space: nowrap;
+        text-align: left;
+        cursor: copy;
+        // Ink sweeps left → right on hover.
+        background: linear-gradient(to right, var(--ink) 50%, var(--underline) 50%);
+        background-size: 200% 100%;
+        background-position: 100% 0;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        transition: background-position 700ms var(--ease-out);
+
+        &:hover,
+        &:focus-visible {
+            background-position: 0 0;
+        }
+    }
+}

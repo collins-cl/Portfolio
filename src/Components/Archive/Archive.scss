@@ -1,0 +1,288 @@
+.archive {
+    &__intro {
+        justify-content: space-between;
+        gap: 40px;
+
+        @media (max-width: 1100px) {
+            flex-direction: row;
+            justify-content: flex-start;
+
+            > * {
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            flex-direction: column;
+        }
+    }
+
+    &__table {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-auto-rows: 240px;
+        grid-auto-flow: row dense;
+        gap: 16px;
+        flex: 1;
+        min-width: 0;
+
+        @media (max-width: 1100px) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        @media (max-width: 640px) {
+            grid-auto-rows: minmax(176px, auto);
+            gap: 12px;
+        }
+    }
+}
+
+.archive-tile {
+    display: flex;
+    gap: 16px;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    cursor: pointer;
+    transition:
+        border-color 200ms ease,
+        background-color 240ms ease;
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex: 1;
+        min-width: 0;
+        padding: 18px;
+    }
+
+    &__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        line-height: 14px;
+        color: var(--ink-3);
+    }
+
+    &__category {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 9px;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: var(--ink-2);
+
+        i {
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+        }
+    }
+
+    &__symbol {
+        font-size: 54px;
+        font-weight: 600;
+        letter-spacing: -2.6px;
+        line-height: 1;
+        color: var(--ink);
+    }
+
+    &__bottom {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    &__text {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        min-width: 0;
+
+        h3 {
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 18px;
+            color: var(--ink);
+        }
+
+        span {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.4px;
+            line-height: 14px;
+            text-transform: uppercase;
+            color: var(--ink-3);
+        }
+    }
+
+    &__arrow {
+        flex: none;
+        width: 18px;
+        height: 18px;
+        color: var(--ink);
+        opacity: 0;
+        transition: opacity 200ms ease;
+    }
+
+    &:hover:not(.is-open),
+    &:focus-visible:not(.is-open) {
+        border-color: var(--ink);
+
+        .archive-tile__arrow {
+            opacity: 1;
+        }
+    }
+
+    // ----- Open -----
+
+    &.is-open {
+        grid-column: span 2;
+        padding: 10px;
+        background: var(--ink);
+        border-color: var(--ink);
+        cursor: default;
+
+        .archive-tile__info {
+            padding: 8px 0 8px 8px;
+            animation: tile-content-in 320ms var(--ease-out) 60ms backwards;
+        }
+
+        .archive-tile__category {
+            color: var(--ink-3);
+        }
+
+        .archive-tile__symbol {
+            color: var(--bg);
+        }
+    }
+
+    &__title {
+        display: flex;
+        align-items: flex-end;
+        gap: 12px;
+
+        h3 {
+            padding-bottom: 6px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--bg);
+        }
+    }
+
+    &__desc {
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--surface);
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    &__links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+
+        a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px 5px 8px;
+            border: 1px solid var(--ink-3);
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 16px;
+            color: var(--bg);
+            transition: border-color 160ms ease;
+
+            &:hover {
+                border-color: var(--bg);
+            }
+        }
+
+        svg {
+            width: 13px;
+            height: 13px;
+        }
+    }
+
+    &__art {
+        flex: none;
+        width: 210px;
+        height: 100%;
+        border-radius: 4px;
+        object-fit: cover;
+        animation: tile-content-in 320ms var(--ease-out) 60ms backwards;
+
+        &.is-top {
+            object-position: top;
+        }
+
+        &--empty {
+            background:
+                linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                var(--ink-2);
+            background-size: 24px 24px;
+        }
+    }
+
+    // ----- Open slot -----
+
+    &--slot {
+        background: var(--surface);
+        border-color: transparent;
+
+        .archive-tile__symbol {
+            color: var(--ink-3);
+        }
+
+        .archive-tile__text span {
+            color: var(--ink);
+        }
+
+        .archive-tile__arrow {
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 640px) {
+        &__info {
+            padding: 14px;
+        }
+
+        &__symbol {
+            font-size: 40px;
+            letter-spacing: -1.8px;
+        }
+
+        &.is-open {
+            flex-direction: column-reverse;
+
+            .archive-tile__info {
+                gap: 14px;
+                padding: 6px;
+            }
+        }
+
+        &__art {
+            width: 100%;
+            height: 180px;
+        }
+    }
+}
+
+@keyframes tile-content-in {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+}

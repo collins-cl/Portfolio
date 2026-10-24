@@ -1,0 +1,313 @@
+/* ---------- Tokens (from the Portfolio v2 pen: k-* variables) ---------- */
+
+:root {
+    --bg: #f1ede6;
+    --surface: #e8e3d9;
+    --ink: #1a1916;
+    --ink-2: #5f5b54;
+    --ink-3: #9c978d;
+    --line: #dad4c8;
+    --grid: #e3ded4;
+    --chip: #fbfaf7;
+    --chip-line: #d9d3c7;
+    --underline: #c3bcae;
+    --green: #1db954;
+
+    --cyan: #a7ecf8;
+    --pink: #f8b4d9;
+    --yellow: #f6d867;
+    --lilac: #cfc6fa;
+    --mint: #b5f0b9;
+    --stamp: #e4572e;
+    --note-ink: #2a2412;
+
+    --font-sans: var(--font-geist), "Geist", system-ui, sans-serif;
+    --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
+    --font-hand: var(--font-caveat), "Caveat", cursive;
+
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --shadow-object: 0 12px 28px rgba(0, 0, 0, 0.12);
+    --shadow-note: 0 10px 22px rgba(0, 0, 0, 0.14);
+
+    --content: 1200px;
+    --edge: 32px;
+    --gutter: max(var(--edge), calc((100% - var(--content)) / 2));
+
+    color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+    --bg: #0d0d0c;
+    --surface: #161615;
+    --ink: #f3f0ea;
+    --ink-2: #a7a39b;
+    --ink-3: #67645e;
+    --line: #262624;
+    --grid: #181817;
+    --chip: #1b1b1a;
+    --chip-line: #2e2e2b;
+    --underline: #46433e;
+
+    color-scheme: dark;
+}
+
+@media (max-width: 640px) {
+    :root {
+        --edge: 20px;
+    }
+}
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+img,
+video {
+    display: block;
+    max-width: 100%;
+}
+
+:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+}
+
+::selection {
+    background: var(--yellow);
+    color: var(--note-ink);
+}
+
+/* Theme swap: a 200ms colour cross-fade, only while switching. */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+    transition:
+        background-color 200ms ease,
+        color 200ms ease,
+        border-color 200ms ease,
+        fill 200ms ease,
+        stroke 200ms ease !important;
+}
+
+.mono {
+    font-family: var(--font-mono);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* ---------- Motion: page load + scroll reveal ---------- */
+
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.load-item {
+    animation: fade-up 500ms var(--ease-out) backwards;
+    animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+html[data-js] [data-reveal] {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+        opacity 500ms var(--ease-out),
+        transform 500ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 60ms);
+}
+
+html[data-js] [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        animation-delay: 0ms !important;
+        transition-duration: 1ms !important;
+        transition-delay: 0ms !important;
+    }
+
+    html[data-js] [data-reveal] {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ---------- Shared pieces ---------- */
+
+// Two-column section frame: 300px intro + content, 48px apart.
+.split {
+    display: flex;
+    gap: 48px;
+    padding: 120px var(--gutter);
+    scroll-margin-top: 60px;
+
+    &__intro {
+        display: flex;
+        flex-direction: column;
+        flex: none;
+        width: 300px;
+    }
+
+    @media (max-width: 1100px) {
+        flex-direction: column;
+        gap: 40px;
+        padding: 88px var(--gutter);
+
+        &__intro {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 640px) {
+        padding: 64px var(--gutter);
+    }
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px 4px 8px;
+    background: var(--chip);
+    border: 1px solid var(--chip-line);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color: var(--ink);
+    white-space: nowrap;
+    transition: border-color 160ms ease;
+
+    svg {
+        width: 15px;
+        height: 15px;
+        flex: none;
+    }
+
+    &:hover {
+        border-color: var(--ink-3);
+    }
+}
+
+.pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: var(--chip);
+    border: 1px solid var(--chip-line);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+    transition: border-color 160ms ease;
+
+    svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    &:hover {
+        border-color: var(--ink-3);
+    }
+}
+
+.toast {
+    position: fixed;
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 11px;
+    background: #111;
+    color: #fff;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 14px;
+    box-shadow: var(--shadow-note);
+    pointer-events: none;
+    animation: toast-pop 1100ms var(--ease-out) forwards;
+
+    svg {
+        width: 13px;
+        height: 13px;
+        color: #4ade80;
+    }
+}
+
+@keyframes toast-pop {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 4px) scale(0.9);
+    }
+    15% {
+        opacity: 1;
+        transform: translate(-50%, -6px) scale(1);
+    }
+    75% {
+        opacity: 1;
+        transform: translate(-50%, -14px);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -22px);
+    }
+}

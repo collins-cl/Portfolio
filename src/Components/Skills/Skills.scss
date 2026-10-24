@@ -1,0 +1,219 @@
+.skills {
+    &__intro {
+        display: flex;
+        flex-direction: column;
+        gap: 44px;
+        flex: none;
+        width: 300px;
+
+        @media (max-width: 1100px) {
+            flex-direction: row;
+            gap: 40px;
+            width: 100%;
+
+            > * {
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            flex-direction: column;
+        }
+    }
+}
+
+.legend {
+    &__label {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: var(--ink-3);
+    }
+
+    &__rows {
+        list-style: none;
+        padding-top: 10px;
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 14px;
+            line-height: 18px;
+            color: var(--ink-2);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--ink);
+        }
+    }
+
+    &__swatch {
+        flex: none;
+        width: 12px;
+        height: 12px;
+        border-radius: 2px;
+    }
+
+    &__count {
+        margin-left: auto;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--ink-3);
+    }
+}
+
+.periodic {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    flex: 1;
+    align-items: start;
+
+    @media (max-width: 1100px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        row-gap: 32px;
+    }
+
+    @media (max-width: 420px) {
+        column-gap: 12px;
+    }
+
+    &__group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--line);
+
+        strong {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.6px;
+            line-height: 1;
+            color: var(--ink);
+        }
+
+        span {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--ink-3);
+        }
+    }
+
+    &__row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+}
+
+.element {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 104px;
+    padding: 8px 9px;
+    color: #1a1916;
+    cursor: default;
+
+    &__number {
+        font-family: var(--font-mono);
+        font-size: 9px;
+        line-height: 1;
+        color: rgba(26, 25, 22, 0.6);
+    }
+
+    &__symbol {
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: -1.2px;
+        line-height: 1;
+    }
+
+    &__name {
+        font-size: 11px;
+        line-height: 14px;
+        color: rgba(26, 25, 22, 0.7);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &--dark {
+        background: #111;
+        color: #fff;
+
+        .element__number,
+        .element__name {
+            color: rgba(255, 255, 255, 0.7);
+        }
+    }
+
+    &--next {
+        border: 1px solid var(--chip-line);
+        color: var(--ink-3);
+
+        .element__number,
+        .element__name {
+            color: var(--ink-3);
+        }
+    }
+
+    &--empty {
+        pointer-events: none;
+    }
+}
+
+.skill-tip {
+    position: absolute;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 220px;
+    padding: 12px 14px;
+    background: var(--chip);
+    border: 1px solid var(--chip-line);
+    border-radius: 10px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+    transform: translate(18px, 18px);
+    pointer-events: none;
+    animation: tip-in 160ms var(--ease-out);
+
+    &.is-flipped {
+        transform: translate(calc(-100% - 18px), 18px);
+    }
+
+    strong {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--ink);
+    }
+
+    p {
+        font-size: 13px;
+        line-height: 1.45;
+        color: var(--ink-2);
+    }
+
+    span {
+        font-family: var(--font-mono);
+        font-size: 9px;
+        letter-spacing: 0.8px;
+        color: var(--ink-3);
+    }
+}

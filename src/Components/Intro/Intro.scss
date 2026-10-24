@@ -1,0 +1,157 @@
+.intro {
+    padding: 120px var(--edge) 110px;
+    display: flex;
+    justify-content: center;
+    scroll-margin-top: 80px;
+
+    &__column {
+        width: 760px;
+        max-width: 100%;
+    }
+
+    &__lead {
+        font-size: 32px;
+        font-weight: 400;
+        letter-spacing: -0.7px;
+        line-height: 52px;
+        color: var(--ink);
+    }
+
+    &__line {
+        display: block;
+        white-space: nowrap;
+    }
+
+    &__sub {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding-top: 36px;
+    }
+
+    &__bio {
+        font-size: 18px;
+        line-height: 1.6;
+        color: var(--ink-2);
+    }
+
+    &__links {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 7px;
+        font-size: 18px;
+        line-height: 28px;
+        color: var(--ink-2);
+
+        &:first-of-type {
+            padding-top: 10px;
+        }
+    }
+
+    @media (max-width: 900px) {
+        padding: 88px var(--edge) 80px;
+
+        &__lead {
+            font-size: 28px;
+            line-height: 46px;
+        }
+    }
+
+    // Phones: let the prose flow instead of holding the designed line breaks.
+    @media (max-width: 720px) {
+        padding: 64px var(--edge) 64px;
+
+        &__lead {
+            font-size: 25px;
+            line-height: 42px;
+            letter-spacing: -0.5px;
+        }
+
+        &__line {
+            display: inline;
+            white-space: normal;
+        }
+
+        &__bio,
+        &__links {
+            font-size: 16px;
+        }
+    }
+}
+
+.chip__x {
+    font-family: "Noto Sans Math", "Segoe UI Symbol", serif;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.ilink {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    vertical-align: top;
+    color: var(--ink);
+
+    &__word {
+        padding-bottom: 2px;
+        line-height: 1.15;
+        border-bottom: 1.5px solid var(--underline);
+        transition: border-color 200ms ease;
+    }
+
+    &__thumb {
+        width: 58px;
+        height: 36px;
+        border-radius: 6px;
+        object-fit: cover;
+        transition: transform 320ms var(--ease-out);
+        will-change: transform;
+
+        &--photo {
+            display: inline-grid;
+            place-items: center;
+            width: 52px;
+            background: linear-gradient(135deg, #f2a65a, #e0607e);
+            color: #fff;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0;
+        }
+    }
+
+    // Line boxes are 52px tall; centre the inline-flex row in them.
+    align-self: center;
+    height: 52px;
+
+    &:hover,
+    &:focus-visible {
+        .ilink__word {
+            border-color: var(--ink);
+        }
+
+        .ilink__thumb {
+            transform: scale(1.08) rotate(3deg);
+        }
+    }
+
+    @media (max-width: 900px) {
+        height: 46px;
+    }
+
+    @media (max-width: 720px) {
+        height: 42px;
+        gap: 7px;
+
+        &__thumb {
+            width: 48px;
+            height: 30px;
+
+            &--photo {
+                width: 44px;
+                font-size: 12px;
+            }
+        }
+    }
+}

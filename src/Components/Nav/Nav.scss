@@ -1,49 +1,69 @@
 .nav {
-    .wrapper {
+    padding: 24px var(--gutter);
+
+    &__inner {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 80px;
+        gap: 16px;
+    }
 
-        .logo {
-            a {
-                font-size: 1.3em;
-                font-weight: 500;
-            }
-        }
+    &__wordmark {
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: -0.4px;
+        color: var(--ink);
+        min-width: 4.2ch;
+        font-variant-numeric: tabular-nums;
+    }
 
-        .aside {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+    &__right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+    }
 
-            .codm-logo {
-                img {
-                    width: 20px;
-                }
-            }
-
-            .username {
-                font-size: 0.9em;
-            }
-        }
+    @media (max-width: 900px) {
+        padding: 20px var(--gutter);
     }
 }
 
-@media screen and (max-width: 1100px) {
-    .nav {
-        .wrapper {
-            .aside {
-                .codm-logo {
-                    img {
-                        width: 18px;
-                    }
-                }
+.theme-toggle {
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 40px;
+    height: 40px;
+    background: var(--chip);
+    border: 1px solid var(--chip-line);
+    border-radius: 20px;
+    color: var(--ink);
+    transition: border-color 160ms ease;
 
-                .username {
-                    font-size: 0.8em;
-                }
-            }
+    svg {
+        grid-area: 1 / 1;
+        width: 17px;
+        height: 17px;
+        transition: opacity 200ms ease;
+    }
+
+    &:hover {
+        border-color: var(--ink-3);
+    }
+
+    &__sun {
+        opacity: 0;
+    }
+
+    [data-theme="dark"] & {
+        .theme-toggle__moon {
+            opacity: 0;
+        }
+
+        .theme-toggle__sun {
+            opacity: 1;
         }
     }
 }

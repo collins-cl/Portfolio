@@ -1,70 +1,132 @@
-.spotify-now-playing {
-    display: flex;
+.spotify-chip {
+    display: inline-flex;
     align-items: center;
     gap: 10px;
-    color: inherit;
-    max-width: 270px;
-    height: 100%;
-    text-decoration: none;
-    transition: opacity 0.2s ease;
+    min-width: 0;
+    padding: 5px 14px 5px 5px;
+    background: var(--chip);
+    border: 1px solid var(--chip-line);
+    border-radius: 999px;
+    transition: border-color 160ms ease;
 
     &:hover {
-        opacity: 0.75;
+        border-color: var(--ink-3);
     }
 
     &__art {
-        width: 40px;
-        height: 40px;
-        flex-shrink: 0;
+        flex: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
         object-fit: cover;
-        border-radius: 6px;
+        animation: spin-slow 9s linear infinite;
+        animation-play-state: paused;
     }
 
-    &__info {
+    &__track {
         display: flex;
         flex-direction: column;
+        gap: 1px;
         min-width: 0;
     }
 
     &__label {
+        font-family: var(--font-mono);
+        font-size: 9px;
+        line-height: 12px;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        color: var(--ink-3);
+    }
+
+    &__song {
+        max-width: 180px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 16px;
+        color: var(--ink);
+    }
+
+    &__eq {
         display: flex;
-        align-items: flex-start;
-        font-size: 10px;
-        opacity: 0.65;
+        align-items: flex-end;
+        gap: 2px;
+        height: 14px;
+
+        span {
+            width: 2.5px;
+            border-radius: 2px;
+            background: var(--green);
+            transform-origin: bottom;
+
+            &:nth-child(1) {
+                height: 6px;
+            }
+            &:nth-child(2) {
+                height: 13px;
+            }
+            &:nth-child(3) {
+                height: 9px;
+            }
+            &:nth-child(4) {
+                height: 14px;
+            }
+        }
     }
 
-    &__title {
-        overflow: hidden;
-        font-size: 12px;
-        font-weight: 600;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+    &__logo {
+        flex: none;
+        width: 16px;
+        height: 16px;
+        color: var(--green);
     }
 
-    &__artist {
-        overflow: hidden;
-        font-size: 11px;
-        opacity: 0.65;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+    &.is-playing {
+        .spotify-chip__art {
+            animation-play-state: running;
+        }
+
+        .spotify-chip__eq span {
+            animation: eq-bounce 900ms ease-in-out infinite alternate;
+
+            &:nth-child(2) {
+                animation-delay: -300ms;
+            }
+            &:nth-child(3) {
+                animation-delay: -600ms;
+            }
+            &:nth-child(4) {
+                animation-delay: -150ms;
+            }
+        }
     }
 
-    &__dot {
-        display: inline-block;
-        width: 7px;
-        height: 7px;
-        flex-shrink: 0;
-        border-radius: 50%;
-        background-color: #1db954;
-    }
+    @media (max-width: 480px) {
+        &__track {
+            display: none;
+        }
 
-    &--idle,
-    &--offline {
-        font-size: 12px;
-        opacity: 0.65;
+        padding-right: 10px;
     }
+}
 
-    &--offline &__dot {
-        background-color: #999;
+@keyframes spin-slow {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes eq-bounce {
+    0% {
+        transform: scaleY(0.3);
+    }
+    50% {
+        transform: scaleY(1);
+    }
+    100% {
+        transform: scaleY(0.55);
     }
 }
