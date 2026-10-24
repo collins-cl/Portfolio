@@ -89,12 +89,23 @@
         background: var(--surface);
         cursor: none;
 
-        > img {
+        > img,
+        > video {
+            display: block;
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 600ms var(--ease-out);
         }
+    }
+
+    // Phone screenshots are tall — anchor them to the top of the screen.
+    &--mobile &__media > img {
+        object-position: center top;
+    }
+
+    div#{&} &__media {
+        cursor: default;
     }
 
     &__pill {
@@ -165,7 +176,8 @@
     }
 
     &:hover {
-        .project__media > img {
+        .project__media > img,
+        .project__media > video {
             transform: scale(1.03);
         }
     }

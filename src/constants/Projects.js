@@ -38,6 +38,30 @@ export const WORK = [
         link: "https://supporthub.byteverse.tech/",
         media: { type: "image", src: "/media/work/supporthub.jpg" },
     },
+    {
+        id: "orbit",
+        name: "Orbit",
+        category: "mobile",
+        desc: "Tasks and focus sessions, with a drawer for capturing new tasks fast.",
+        stack: "React Native · Expo",
+        media: { type: "image", src: "/media/OrbitFocus.png" },
+    },
+    {
+        id: "crumb",
+        name: "Crumb",
+        category: "mobile",
+        desc: "Polished screens and drawers, down to the address picker.",
+        stack: "React Native · Expo",
+        media: { type: "image", src: "/media/Crumb.png" },
+    },
+    {
+        id: "nomad",
+        name: "Nomad",
+        category: "mobile",
+        desc: "Travel companion app — tickets and trips in one place.",
+        stack: "React Native · Expo",
+        media: { type: "image", src: "/media/NomadTicket.png" },
+    },
 ];
 
 export const WORK_FILTERS = [

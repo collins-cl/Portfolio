@@ -8,6 +8,7 @@ import SectionHead from "../SectionHead/SectionHead";
 import "../SelectedWork/SelectedWork.scss";
 
 const FADE_MS = 180;
+const ALL_LIMIT = 4;
 
 // Column A starts tall, column B starts short — the pen's staggered bento.
 const HEIGHTS = [
@@ -26,35 +27,53 @@ const Project = ({ project, height }) => {
         pill.style.setProperty("--y", `${event.clientY - rect.top}px`);
     };
 
+    // Mobile apps have no live URL, so they render as a plain card.
+    const Wrapper = project.link ? "a" : "div";
+    const linkProps = project.link
+        ? { href: project.link, target: "_blank", rel: "noopener noreferrer" }
+        : {};
+
     return (
-        <a
-            className="project"
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
+        <Wrapper
+            className={`project project--${project.category}`}
+            {...linkProps}
         >
             <div
                 className="project__media"
                 style={{ height }}
-                onPointerMove={movePill}
-                onPointerEnter={movePill}
+                onPointerMove={project.link ? movePill : undefined}
+                onPointerEnter={project.link ? movePill : undefined}
             >
-                <img src={project.media.src} alt={`${project.name} cover`} loading="lazy" />
+                {project.media.type === "video" ? (
+                    <video
+                        src={project.media.src}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="metadata"
+                        aria-label={`${project.name} demo`}
+                    />
+                ) : (
+                    <img src={project.media.src} alt={`${project.name} cover`} loading="lazy" />
+                )}
 
-                <span className="project__pill" ref={pillRef} aria-hidden>
-                    View live <PiArrowUpRight />
-                </span>
+                {project.link && (
+                    <span className="project__pill" ref={pillRef} aria-hidden>
+                        View live <PiArrowUpRight />
+                    </span>
+                )}
             </div>
 
             <div className="project__meta">
                 <div className="project__title">
                     <h3>{project.name}</h3>
-                    <PiArrowUpRight aria-hidden />
+                    {project.link && <PiArrowUpRight aria-hidden />}
                 </div>
                 <p className="project__desc">{project.desc}</p>
                 <p className="project__stack">{project.stack}</p>
             </div>
-        </a>
+        </Wrapper>
     );
 };
 
@@ -81,7 +100,10 @@ const SelectedWork = ({ filter, onFilter }) => {
         return () => clearTimeout(timer);
     }, [filter, shown]);
 
-    const projects = WORK.filter((project) => shown === "all" || project.category === shown);
+    const projects =
+        shown === "all"
+            ? WORK.slice(0, ALL_LIMIT)
+            : WORK.filter((project) => project.category === shown);
     const columns = [[], []];
 
     projects.forEach((project, index) => columns[index % 2].push(project));
