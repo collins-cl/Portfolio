@@ -1,4 +1,4 @@
-.playground {
+.motion {
     display: flex;
     flex-direction: column;
     gap: 48px;
@@ -53,8 +53,26 @@
             display: none;
         }
 
+        // Swipeable row that bleeds to the screen edges.
         &__tiles {
-            gap: 32px 12px;
+            display: flex;
+            gap: 12px;
+            margin-inline: calc(-1 * var(--edge));
+            padding-inline: var(--edge);
+            overflow-x: auto;
+            overscroll-behavior-x: contain;
+            scroll-snap-type: x mandatory;
+            scroll-padding-inline: var(--edge);
+            scrollbar-width: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            > .piece {
+                flex: 0 0 78%;
+                scroll-snap-align: start;
+            }
         }
     }
 }

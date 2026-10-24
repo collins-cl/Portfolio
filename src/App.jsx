@@ -8,8 +8,8 @@ import GiantEmail from "./Components/GiantEmail/GiantEmail";
 import Guestbook from "./Components/Guestbook/Guestbook";
 import Intro from "./Components/Intro/Intro";
 import Nav from "./Components/Nav/Nav";
-import Playground from "./Components/Playground/Playground";
-import SelectedWork from "./Components/SelectedWork/SelectedWork";
+import Motion from "./Components/Motion/Motion";
+import Workbench from "./Components/Workbench/Workbench";
 import Skills from "./Components/Skills/Skills";
 import { SpotifyProvider } from "./hooks/useSpotify";
 
@@ -49,8 +49,8 @@ function App() {
                 <Intro onFilter={setWorkFilter} />
                 <Collage />
                 <Skills />
-                <SelectedWork filter={workFilter} onFilter={setWorkFilter} />
-                <Playground />
+                <Workbench filter={workFilter} onFilter={setWorkFilter} />
+                <Motion />
                 <Archive />
                 <Contact />
             </main>

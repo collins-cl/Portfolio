@@ -93,7 +93,7 @@ const Intro = ({ onFilter }) => {
                             word="web apps"
                             thumb="/media/collage/thumb-web.jpg"
                             href="#work"
-                            label="web apps — see selected web work"
+                            label="web apps — see web work on the bench"
                             onClick={() => openWork("web")}
                         />
                         ,
@@ -105,9 +105,9 @@ const Intro = ({ onFilter }) => {
                         <InlineLink
                             word="mobile apps"
                             thumb="/media/collage/thumb-mobile.jpg"
-                            href="#playground"
-                            label="mobile apps — open the playground"
-                            onClick={() => scrollToId("playground")}
+                            href="#motion"
+                            label="mobile apps — see them in motion"
+                            onClick={() => scrollToId("motion")}
                         />{" "}
                         and the odd{" "}
                         <InlineLink

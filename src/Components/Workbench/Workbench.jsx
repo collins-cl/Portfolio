@@ -5,7 +5,7 @@ import { PiArrowUpRight } from "react-icons/pi";
 import { WORK, WORK_FILTERS } from "../../constants/Projects";
 import { prefersReducedMotion } from "../../hooks/useReducedMotion";
 import SectionHead from "../SectionHead/SectionHead";
-import "../SelectedWork/SelectedWork.scss";
+import "../Workbench/Workbench.scss";
 
 const FADE_MS = 180;
 const ALL_LIMIT = 4;
@@ -77,7 +77,7 @@ const Project = ({ project, height }) => {
     );
 };
 
-const SelectedWork = ({ filter, onFilter }) => {
+const Workbench = ({ filter, onFilter }) => {
     const [shown, setShown] = useState(filter);
     const [fading, setFading] = useState(false);
 
@@ -113,10 +113,10 @@ const SelectedWork = ({ filter, onFilter }) => {
             <div className="work__intro split__intro" data-reveal>
                 <SectionHead
                     number="02"
-                    symbol="Sw."
-                    title="Selected Work."
+                    symbol="Wb."
+                    title="Workbench."
                     meta="Client & personal"
-                    desc="Things I've built for clients and for myself — marketplaces, realtime games, a crypto exchange and a helpdesk. The ones I'd show my mum first."
+                    desc="Things I've built, and am still building, for clients and for myself — marketplaces, realtime games, a crypto exchange and a helpdesk. The ones I'd show my mum first."
                 />
 
                 <div className="tabs" role="tablist" aria-label="Filter projects">
@@ -157,4 +157,4 @@ const SelectedWork = ({ filter, onFilter }) => {
     );
 };
 
-export default SelectedWork;
+export default Workbench;

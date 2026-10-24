@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { PiPauseFill, PiPlayFill } from "react-icons/pi";
 import { Screens } from "../../constants/Screens";
 import SectionHead from "../SectionHead/SectionHead";
-import "../Playground/Playground.scss";
+import "../Motion/Motion.scss";
 
 const TINTS = ["#CFE3D6", "#F1CBB9", "#C9D2F2", "#F1E2A6"];
 const RING = 2 * Math.PI * 12;
@@ -123,25 +123,25 @@ const ScreenVideo = ({ src, title }) => {
     );
 };
 
-const Playground = () => {
+const Motion = () => {
     const count = pad(PIECES.length);
 
     return (
-        <section className="playground" id="playground">
-            <div className="playground__head" data-reveal>
-                <div className="playground__head-left">
+        <section className="motion" id="motion">
+            <div className="motion__head" data-reveal>
+                <div className="motion__head-left">
                     <SectionHead
                         number="03"
-                        symbol="Pg."
-                        title="Playground."
+                        symbol="Mo."
+                        title="In Motion."
                         meta={`Mobile · ${count} pieces`}
                         desc="Real screens and interactions from mobile apps I've shipped or recreated — polished UI, buttery transitions and the details that make users stay."
                     />
                 </div>
-                <p className="playground__count">{count} pieces · React Native / Expo</p>
+                <p className="motion__count">{count} pieces · React Native / Expo</p>
             </div>
 
-            <div className="playground__tiles">
+            <div className="motion__tiles">
                 {PIECES.map((screen, index) => (
                     <figure
                         className="piece"
@@ -182,4 +182,4 @@ const Playground = () => {
     );
 };
 
-export default Playground;
+export default Motion;
