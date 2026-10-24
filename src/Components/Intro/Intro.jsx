@@ -29,7 +29,13 @@ const InlineLink = ({ word, thumb, initials, label, onClick, href }) => (
                 {initials}
             </span>
         ) : (
-            <img className="ilink__thumb" src={thumb} alt="" width={58} height={36} />
+            <img
+                className="ilink__thumb"
+                src={thumb}
+                alt=""
+                width={58}
+                height={36}
+            />
         )}
     </a>
 );
@@ -58,21 +64,30 @@ const Intro = ({ onFilter }) => {
         <section className="intro" id="top">
             <div className="intro__column">
                 <h1 className="intro__lead">
-                    <span className="intro__line load-item" style={{ "--i": 1 }}>
+                    <span
+                        className="intro__line load-item"
+                        style={{ "--i": 1 }}
+                    >
                         Hi, I'm{" "}
                         <InlineLink
                             word="Collins"
-                            initials="CA"
+                            thumb="/media/collage/profile-thumbb.jpg"
                             href="#contact"
                             label="Collins — say hello"
                             onClick={() => scrollToId("contact")}
                         />
                         , a software developer who
                     </span>{" "}
-                    <span className="intro__line load-item" style={{ "--i": 2 }}>
+                    <span
+                        className="intro__line load-item"
+                        style={{ "--i": 2 }}
+                    >
                         turns ideas into real-life products. For the past
                     </span>{" "}
-                    <span className="intro__line load-item" style={{ "--i": 3 }}>
+                    <span
+                        className="intro__line load-item"
+                        style={{ "--i": 3 }}
+                    >
                         three years I've been building{" "}
                         <InlineLink
                             word="web apps"
@@ -83,7 +98,10 @@ const Intro = ({ onFilter }) => {
                         />
                         ,
                     </span>{" "}
-                    <span className="intro__line load-item" style={{ "--i": 4 }}>
+                    <span
+                        className="intro__line load-item"
+                        style={{ "--i": 4 }}
+                    >
                         <InlineLink
                             word="mobile apps"
                             thumb="/media/collage/thumb-mobile.jpg"
@@ -101,7 +119,10 @@ const Intro = ({ onFilter }) => {
                         />{" "}
                         experiment
                     </span>{" "}
-                    <span className="intro__line load-item" style={{ "--i": 5 }}>
+                    <span
+                        className="intro__line load-item"
+                        style={{ "--i": 5 }}
+                    >
                         for clients across continents.
                     </span>
                 </h1>

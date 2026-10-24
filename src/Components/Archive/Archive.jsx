@@ -115,7 +115,7 @@ const Archive = () => {
                     symbol="Ar."
                     title="Archive."
                     meta={`${ARCHIVE.length + 1} elements · 1 open slot`}
-                    desc="A running list of everything I've shipped — big, small, serious, and some that made more sense at the time."
+                    desc="A running list of everything I've shipped, big, small, serious, and some that made more sense at the time."
                 />
 
                 <div className="legend">

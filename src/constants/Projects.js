@@ -104,7 +104,10 @@ export const ARCHIVE = [
         stack: "Next.js · Vercel",
         desc: "Where landlords and agents meet tenants and people looking for a home. Connect with agents and find the right place for you.",
         links: [
-            { label: "havn-hvn.vercel.app", href: "https://havn-hvn.vercel.app/" },
+            {
+                label: "havn-hvn.vercel.app",
+                href: "https://havn-hvn.vercel.app/",
+            },
         ],
         art: { type: "image", src: "/media/work/havn.jpg" },
     },
@@ -116,7 +119,10 @@ export const ARCHIVE = [
         stack: "Next.js · Laravel",
         desc: "A modern cryptocurrency exchange and digital platform that enables seamless transactions across parties.",
         links: [
-            { label: "jagabanexchange.com", href: "https://jagabanexchange.com/" },
+            {
+                label: "jagabanexchange.com",
+                href: "https://jagabanexchange.com/",
+            },
         ],
         art: { type: "image", src: "/media/work/jagaban.jpg" },
     },
@@ -152,9 +158,7 @@ export const ARCHIVE = [
         category: "mobile",
         stack: "React Native · Expo",
         desc: "SkillDuel on your phone — the same 1v1 knowledge duels, timed rounds and climb from Rookie to Master, built with React Native and Expo.",
-        links: [
-            { label: "skillduel.app", href: "https://www.skillduel.app/" },
-        ],
+        links: [{ label: "skillduel.app", href: "https://www.skillduel.app/" }],
         art: { type: "image", src: "/media/work/skillduel.jpg" },
     },
     {
@@ -249,15 +253,8 @@ export const SKILL_GROUPS = [
                 name: "Express",
                 note: "Powers the live Spotify widget and this guestbook.",
             },
-            { symbol: "Go", name: "Go", uses: ["SkillDuel", "useWaka"] },
+
             { symbol: "My", name: "MySQL", uses: ["SkillDuel"] },
-            { symbol: "Lv", name: "Laravel", uses: ["Jagaban Exchange"] },
-            {
-                symbol: "Ws",
-                name: "WebSockets",
-                uses: ["SkillDuel"],
-                note: "Realtime duel rounds in SkillDuel.",
-            },
         ],
     },
     {
@@ -267,8 +264,8 @@ export const SKILL_GROUPS = [
         color: "var(--lilac)",
         elements: [
             {
-                symbol: "Bc",
-                name: "Blockchain",
+                symbol: "Sd",
+                name: "Solidity",
                 uses: ["Jagaban Exchange", "Hawksite"],
             },
             {
